@@ -200,6 +200,14 @@ class TestTimeStampField(unittest.TestCase):
             str(context.exception)
         )
 
+    def test_blank_field(self):
+        time_field = fields.TimeStampField(blank=True)
+        db_v = time_field.lookup_value(None, None)
+        self.assertEqual(db_v, None)
+
+        val = time_field.python_value(db_v)
+        self.assertEqual(val, None)
+
 
 class TestBooleanField(unittest.TestCase):
     def test_attributes(self):
