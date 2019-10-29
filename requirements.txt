@@ -1,2 +1,2 @@
-firebase-admin==2.16.0
+firebase-admin
 iso8601==0.1.12
