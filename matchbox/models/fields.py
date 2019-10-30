@@ -201,7 +201,11 @@ class ReferenceField(Field):
         return self.db_value(value)
 
     def db_value(self, value):
-        if not issubclass(value.__class__, self.ref_model):
+        if hasattr(value, "full_collection_name") and hasattr(value, "id"):
+            # check for collection attributes (used for proxy/lazy loading)
+            # if we have this attribute everything is ok even if we have the wrong class name
+            pass
+        elif not issubclass(value.__class__, self.ref_model):
             raise error.DBTypeError(
                 '{} required value type {}, get {}'.format(
                     self.__class__.__name__,
